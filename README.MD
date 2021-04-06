@@ -7,6 +7,8 @@ Cost of goods sold (COGS) refers to the direct costs of producing the goods sold
 
 ## TagUntagged.ps1
 
-Define variables in this file.
+```powershell
+./TagUntagged.ps1 -startDays "Monday Tuesday Wednesday Thursday Friday" -stopDays "Monday Tuesday Wednesday Thursday Friday" -startTime "08:45" -stopTime "18:30" -dryRun 1 -prefix "COGS_"
+```
 
 
