@@ -29,6 +29,7 @@ param(
 )
 function ContainsTag
 {
+  [CmdletBinding()]
   param(
     [Parameter(Mandatory=$true)][string]$resourceId,
     [Parameter(Mandatory=$true)][string]$tag
@@ -44,6 +45,7 @@ function ContainsTag
 }
 function AddNewTags
 {
+  [CmdletBinding()]
   param(
       [Parameter(Mandatory=$true)][string]$resourceId,
       [Parameter(Mandatory=$true)][string]$key,
