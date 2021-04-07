@@ -22,7 +22,7 @@ resource "azurerm_automation_account" "aaacogs" {
 }
 
 data "local_file" "runner_file" {
-  filename = "../Runner.ps1"
+  filename = "Runner.ps1"
 }
 
 resource "azurerm_automation_runbook" "arcogs" {
