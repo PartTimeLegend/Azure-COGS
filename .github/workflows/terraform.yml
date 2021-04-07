@@ -9,9 +9,9 @@ on:
   
 jobs:
   terraform:
+    steps:
     - uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v1
-    steps:
     - name: Terraform fmt
       id: fmt
       run: terraform fmt terraform -check
