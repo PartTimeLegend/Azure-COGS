@@ -1,3 +1,19 @@
+<#
+.SYNOPSIS
+  Starts and stops resources based on a day of the week and a time setting.
+.DESCRIPTION
+  Starts and stops resources based on a day of the week and a time setting.
+.PARAMETER $dryRun if true no resources will be altered.
+.PARAMETER $prefix a prefix for the tags such as COGS_ can be used for multiple sets of similar tags.
+.NOTES
+  Version:        1.0
+  Author:         Antony Bailey
+  Creation Date:  2021/04/07
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  ./Runner.ps1 -dryRun 1 -prefix "COGS_"
+#>
 param(  
   [Parameter(Mandatory=$true)][bool]$dryRun=$true,
   [Parameter(Mandatory=$false)][string]$prefix,
