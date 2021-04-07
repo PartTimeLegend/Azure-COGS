@@ -16,3 +16,6 @@ Cost of goods sold (COGS) refers to the direct costs of producing the goods sold
 ```powershell
 ./Runner.ps1 -dryRun 1 -prefix "COGS_"
 ```
+
+## Terrafrom
+I'm sure you already know what [Terraform](https://terraform.io) is so no need to explain this.
