@@ -43,8 +43,13 @@ resource "azurerm_automation_runbook" "arcogs" {
     uri = "https://www.microsoft.com" # Placeholder as Azure is dumb
   }
 }
-output "runbook_content" {
-  value = data.local_file.startstop_file.content
+
+output "location" {
+  value = local.az_region_abbrv
+}
+
+output "resource_group_name" {
+  value = azurerm_resource_group.rgcogs.name
 }
 
 output "automation_account_name" {
