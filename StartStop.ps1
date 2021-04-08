@@ -18,12 +18,36 @@ param(
   [Parameter(Mandatory=$true)][bool]$dryRun=$true,
   [Parameter(Mandatory=$false)][string]$prefix
 )
+# Ensures you do not inherit an AzContext in your runbook
+Disable-AzContextAutosave -Scope Process
+
 $startDaysTagKey = "${prefix}StartDays"
 $stopDaysTagKey = "${prefix}StopDays"
 $apimDaySku = "Basic"
 $apimNightSku = "Developer"
 $resources = Get-AzResource
 $currentDay = (Get-Date -Format dddd)
+function ConnectToAzureAutomation
+{
+  $connection = Get-AutomationConnection -Name AzureRunAsConnection
+  while(!($connectionResult) -and ($logonAttempt -le 10))
+  {
+      $LogonAttempt++
+      Write-FormattedOutput "Logging in to Azure attempt ${logonAttempt}" -ForegroundColor "Green"
+      $connectionResult = Connect-AzAccount `
+                              -ServicePrincipal `
+                              -Tenant $connection.TenantID `
+                              -ApplicationId $connection.ApplicationID `
+                              -CertificateThumbprint $connection.CertificateThumbprint
+
+      Start-Sleep -Seconds 30
+  }
+  if ($logonAttempt -gt 10)
+  {
+    Write-FormattedOutput "Logging in to Azure breached 10 attempts and failed." -ForegroundColor "Red"
+  }
+}
+
 function Get-AzVMStatus
 {
   param(  
@@ -154,6 +178,7 @@ function Write-FormattedOutput
     $host.UI.RawUI.BackgroundColor = $bc
     $host.UI.RawUI.ForegroundColor = $fc
 }
+ConnectToAzureAutomation # Establish runbook connection
 foreach ($resource in $resources)
 {
   $startDaysValue = $resource.Tags[$startDaysTagKey]
