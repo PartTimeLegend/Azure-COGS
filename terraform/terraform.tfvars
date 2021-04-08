@@ -1,1 +1,1 @@
-az_region="UK South"
+az_region = "UK South"

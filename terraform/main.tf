@@ -1,9 +1,9 @@
 provider "azurerm" {
-    version         = "= 2.33.0"
-    features {}
+  version = "= 2.33.0"
+  features {}
 }
 locals {
-    az_region_abbrv = var.az_region_abbr_map[var.az_region]
+  az_region_abbrv = var.az_region_abbr_map[var.az_region]
 }
 
 resource "azurerm_resource_group" "rgcogs" {
@@ -15,7 +15,7 @@ resource "azurerm_automation_account" "aaacogs" {
   name                = "aaacogs${local.az_region_abbrv}"
   location            = var.az_region
   resource_group_name = azurerm_resource_group.rgcogs.name
-  sku_name = "Basic"
+  sku_name            = "Basic"
   depends_on = [
     azurerm_resource_group.rgcogs
   ]
@@ -34,7 +34,7 @@ resource "azurerm_automation_runbook" "arcogs" {
   log_progress            = "true"
   description             = "Starts and Stops Resources based on times"
   runbook_type            = "PowerShell"
-  content = data.local_file.runner_file.content
+  content                 = data.local_file.runner_file.content
   depends_on = [
     azurerm_resource_group.rgcogs,
     azurerm_automation_account.aaacogs,
